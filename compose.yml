@@ -44,7 +44,10 @@ services:
         source: ./src/client
         target: /app
     tty: true
-
+    environment:
+      # こっちのオプションでは動作せず
+      # - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
   db:
     build:
       context: .
