@@ -1,10 +1,25 @@
-import Header from '@/app/(app)/Header'
+'use client'
 
-export const metadata = {
-    title: 'Laravel - Dashboard',
-}
+import Header from '@/app/(app)/Header'
+import axios from 'axios'
+import { useEffect } from 'react'
+
 
 const Dashboard = () => {
+
+    useEffect(() => {
+        const fetchMovies = async () => {
+            try{
+                const response = await axios.get('api/getPopularMovies');
+                console.log(response);
+            } catch (err) {
+                console.log(err);
+            }            
+        }
+
+        fetchMovies();
+    })
+
     return (
         <>
             <Header title="Home" />
