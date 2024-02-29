@@ -2,23 +2,23 @@
 
 import Header from '@/app/(app)/Header'
 import axios from 'axios'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 
-const Dashboard = () => {
-
+const Home = () => {
+    const[movies, setMovies] = useState([]);
     useEffect(() => {
         const fetchMovies = async () => {
             try{
                 const response = await axios.get('api/getPopularMovies');
                 console.log(response);
+                setMovies(response.data.results);
             } catch (err) {
                 console.log(err);
             }            
         }
-
         fetchMovies();
-    })
+    }, [])
 
     return (
         <>
@@ -27,7 +27,9 @@ const Dashboard = () => {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 bg-white border-b border-gray-200">
-                            You are logged in!
+                            {movies.map((movie) => (
+                                <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}/>
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -36,4 +38,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default Home
